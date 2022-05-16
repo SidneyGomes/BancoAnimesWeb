@@ -1,11 +1,19 @@
 package com.homoSapiens.bancoDeAnimes.foo.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.ForeignKey;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import com.sun.istack.NotNull;
 
 @Entity
 @Table(name = "Anime")
@@ -28,14 +36,15 @@ public class Anime {
 	@Column(name = "image")
 	private String image;
 
-	public Anime(int id, String name, String link, int weekDay, String image) {
+	public Anime(int id, String name, String link, int weekDay, String image, List<Episodio> episodios) {
 		this.id = id;
 		this.name = name;
 		this.link = link;
 		this.weekDay = weekDay;
 		this.image = image;
+		this.episodios = episodios;
 	}
-	
+
 	public Anime(){}
 
 	public int getId() {
@@ -77,5 +86,19 @@ public class Anime {
 	public void setImage(String image) {
 		this.image = image;
 	}
+	
+	public List<Episodio> getEpisodios() {
+		return episodios;
+	}
+
+	public void setEpisodios(List<Episodio> episodios) {
+		this.episodios = episodios;
+	}
+
+	
+	@NotNull()
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@JoinColumn(name = "fk_episodio_id", foreignKey = @ForeignKey(name = "fk_episodio"), referencedColumnName = "id")
+	private List<Episodio> episodios = new ArrayList<>();
 
 }

@@ -1,7 +1,11 @@
 package com.homoSapiens.bancoDeAnimes.foo.controller.dto;
 
+import java.util.List;
 import com.homoSapiens.bancoDeAnimes.foo.model.Anime;
+import com.homoSapiens.bancoDeAnimes.foo.model.Episodio;
+import lombok.Data;
 
+@Data
 public class AnimeDTO {
 
 	private int id;
@@ -9,6 +13,7 @@ public class AnimeDTO {
 	private String link;
 	private int weekDay;
 	private String image;
+	private List<Episodio> episodios;
 
 	public AnimeDTO(Anime anime) {
 		this.id = anime.getId();
@@ -16,6 +21,15 @@ public class AnimeDTO {
 		this.link = anime.getLink();
 		this.weekDay = anime.getWeekDay();
 		this.image = anime.getImage();
+		this.episodios = anime.getEpisodios();
+	}
+
+	public List<Episodio> getEpisodios() {
+		return episodios;
+	}
+
+	public void setEpisodios(List<Episodio> episodios) {
+		this.episodios = episodios;
 	}
 
 	public int getId() {
