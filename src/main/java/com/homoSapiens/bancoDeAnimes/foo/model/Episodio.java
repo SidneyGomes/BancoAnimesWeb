@@ -14,7 +14,6 @@ public class Episodio {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
 	private int id;
 	
 	@Column(name = "name")
@@ -26,11 +25,16 @@ public class Episodio {
 	
 	public Episodio() {}
 	
-	public Episodio(int id, String name, boolean watcher) {
+	public Episodio(int id, String name, boolean watched) {
 		super();
 		this.id = id;
 		this.name = name;
-		this.watched = watcher;
+		this.watched = watched;
+	}
+	
+	public Episodio(String name, boolean watched) {
+		this.name = name;
+		this.watched = watched;
 	}
 
 	public int getId() {

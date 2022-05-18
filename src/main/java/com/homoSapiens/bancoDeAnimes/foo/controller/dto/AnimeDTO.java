@@ -10,6 +10,9 @@ public class AnimeDTO {
 
 	private int id;
 	private String name;
+	private int qtdEpisodios;
+	
+
 	private String link;
 	private int weekDay;
 	private String image;
@@ -21,9 +24,19 @@ public class AnimeDTO {
 		this.link = anime.getLink();
 		this.weekDay = anime.getWeekDay();
 		this.image = anime.getImage();
+		this.qtdEpisodios = anime.getQtdEpisodios();
 		this.episodios = anime.getEpisodios();
 	}
 
+	
+	public int getQtdEpisodios() {
+		return qtdEpisodios;
+	}
+
+	public void setQtdEpisodios(int qtdEpisodios) {
+		this.qtdEpisodios = qtdEpisodios;
+	}
+	
 	public List<Episodio> getEpisodios() {
 		return episodios;
 	}

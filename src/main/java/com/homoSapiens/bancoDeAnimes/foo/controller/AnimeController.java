@@ -1,16 +1,19 @@
 package com.homoSapiens.bancoDeAnimes.foo.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.homoSapiens.bancoDeAnimes.foo.controller.dto.AnimeDTO;
 import com.homoSapiens.bancoDeAnimes.foo.model.Anime;
+import com.homoSapiens.bancoDeAnimes.foo.model.Episodio;
 import com.homoSapiens.bancoDeAnimes.foo.service.AnimeService;
 
 @RestController
@@ -22,7 +25,6 @@ public class AnimeController {
 	
 	@GetMapping("/allanime")
 	public List<AnimeDTO> listAll(){
-
 		return animeService.getAnimes();
 	}
 	
@@ -31,5 +33,18 @@ public class AnimeController {
 		Optional<Anime> anime = animeService.getAnimeById(id);
 		return anime.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
 	}
+	
+
+	@PostMapping("/save_anime")
+	public String saveAnime(@RequestBody Anime anime) {
+
+		ArrayList<Episodio> listEpisodios = new ArrayList<Episodio>();
+		listEpisodios.add(new Episodio("casa", true));
+		animeService.cadastrar(new Anime(anime.getName(), anime.getLink(), anime.getWeekDay(), "imagemaqui", listEpisodios, anime.getQtdEpisodios()));
+		
+		//return name;
+		return anime.getName();
+	}
+	
 
 }

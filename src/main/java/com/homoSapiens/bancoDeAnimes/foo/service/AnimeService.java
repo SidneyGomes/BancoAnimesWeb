@@ -22,5 +22,9 @@ public class AnimeService {
 	public Optional<Anime> getAnimeById(int id){
 		return animeRepository.findById(id);
 	}
-
+	
+	public Anime cadastrar(Anime aluno) {
+		return animeRepository.save(aluno);
+	}
+	
 }
