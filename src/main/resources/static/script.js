@@ -1,10 +1,12 @@
-var myAnimeArray = []
-
 function getAnimes() {
 	var url = "/anime/allanime"
 
 	$.get(url, function(responseJson) {
 		tableAnime(responseJson)
+
+		if (Object.keys(responseJson).length > 0) {
+			clickBtnAnimeList(Object.values(responseJson)[0].id, `btn-anime${0}`)
+		}
 
 	}).done(function() {
 		//console.log("sucess")
@@ -20,10 +22,14 @@ function tableAnime(data) {
 	var list = document.getElementById("list-anime")
 	var btn_anime = document.getElementById('btn-anime-inicio')
 
-
 	if (Object.keys(data).length > 0) {
 
-		btn_anime.parentNode.removeChild(btn_anime)
+		if (btn_anime != null) {
+			btn_anime.parentNode.removeChild(btn_anime)
+
+		}
+
+		list.innerHTML = "";
 
 		for (var i = 0; i < Object.keys(data).length; i++) {
 			list.innerHTML += `<button type='button' id= "btn-anime${i}" onclick= 'clickBtnAnimeList(${Object.values(data)[i].id}, "btn-anime${i}")' class= 'list-group-item list-group-item-action'>` + Object.values(data)[i].name + "</button>"
@@ -34,9 +40,10 @@ function tableAnime(data) {
 
 	}
 }
-$(document).ready(function() {	
+
+$(document).ready(function() {
 	var url = "anime/save_anime"
-	
+
 	$("#bookForm").submit(function(event) {
 		// Prevent the form from submitting via the browser.
 		event.preventDefault();
@@ -45,17 +52,15 @@ $(document).ready(function() {
 	});
 
 	function ajaxPost() {
-		
-		var list = document.getElementById("list-anime")
-		var tam = list.childNodes.length
-		
+
 		// PREPARE FORM DATA
 		var formData = {
 			name: $("#nameForm").val(),
 			link: $("#linkForm").val(),
-			weekDay: $("#weekDayForm").val()
+			weekDay: $("#weekDayForm").val(),
+			tam: $("#tamForm").val()
 		}
-		
+
 		// DO POST
 		$.ajax({
 			type: "POST",
@@ -63,11 +68,13 @@ $(document).ready(function() {
 			url: url,
 			data: JSON.stringify(formData),
 			dataType: 'json'
-			
+
 		});
-		
-		list.innerHTML += `<button type='button' id= "btn-anime${tam-1}" onclick= 'clickBtnAnimeList(${tam}, "btn-anime${tam-1}")' class= 'list-group-item list-group-item-action'> ${formData.name} </button>`
+
+		getAnimes();
+
 	}
+
 })
 
 
@@ -87,7 +94,7 @@ function clickBtnAnimeList(value, idButton) {
 
 	var url = `/anime/${value}`
 	$.get(url, function(responseJson) {
-		
+
 		var list = document.getElementById('table-episodios')
 		list.innerHTML = ""
 		for (var i = 1; i <= Object.values(responseJson)[6].length; i++) {
@@ -113,7 +120,6 @@ function clickBtnAnimeList(value, idButton) {
 		//console.log("sucess")
 	}).fail(function() {
 		alert("fail")
-
 	});
 
 }

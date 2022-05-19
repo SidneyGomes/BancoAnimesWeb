@@ -21,6 +21,7 @@ public class Anime {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
 	private int id;
 	
 	@Column(name = "name")
@@ -35,40 +36,31 @@ public class Anime {
 	@Column(name = "image")
 	private String image;
 	
-	@Column(name = "qtdEpisodios")
-	private int qtdEpisodios;
+	@Column(name = "tam")
+	private int tam;
 
-	public Anime(int id, String name, String link, int weekDay, String image, List<Episodio> episodios, int qtdEpisodios) {
+	public Anime(int id, String name, String link, int weekDay, String image, int tam, List<Episodio> episodios) {
 		this.id = id;
 		this.name = name;
 		this.link = link;
 		this.weekDay = weekDay;
 		this.image = image;
+		this.tam = tam;
 		this.episodios = episodios;
 	}
 	
 
-	public Anime(String name, String link, int weekDay, String image, List<Episodio> episodios, int qtdEpisodios) {
+	public Anime(String name, String link, int weekDay, String image,  int tam, List<Episodio> episodios) {
 		this.name = name;
 		this.link = link;
 		this.weekDay = weekDay;
 		this.image = image;
 		this.episodios = episodios;
+		this.tam = tam;
 	}
 
 	public Anime(){}
 	
-	
-	
-	
-	
-	public int getQtdEpisodios() {
-		return qtdEpisodios;
-	}
-
-	public void setQtdEpisodios(int qtdEpisodios) {
-		this.qtdEpisodios = qtdEpisodios;
-	}
 
 
 	public int getId() {
@@ -118,8 +110,27 @@ public class Anime {
 	public void setEpisodios(List<Episodio> episodios) {
 		this.episodios = episodios;
 	}
-
 	
+	public int getTam() {
+		return tam;
+	}
+
+	public void setTam(int tam) {
+		this.tam = tam;
+	}
+	
+	
+	
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return "name: " +  this.name + " id: " + this.id + " image: " + this.image + " weekDay: " + this.weekDay + " qtdepisodios: " + this.tam + " link: " + this.link;
+	}
+
+
+
+
 	@NotNull()
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "fk_episodio_id", foreignKey = @ForeignKey(name = "fk_episodio"), referencedColumnName = "id")

@@ -10,9 +10,7 @@ public class AnimeDTO {
 
 	private int id;
 	private String name;
-	private int qtdEpisodios;
-	
-
+	private int tam;
 	private String link;
 	private int weekDay;
 	private String image;
@@ -24,25 +22,8 @@ public class AnimeDTO {
 		this.link = anime.getLink();
 		this.weekDay = anime.getWeekDay();
 		this.image = anime.getImage();
-		this.qtdEpisodios = anime.getQtdEpisodios();
+		this.tam = anime.getTam();
 		this.episodios = anime.getEpisodios();
-	}
-
-	
-	public int getQtdEpisodios() {
-		return qtdEpisodios;
-	}
-
-	public void setQtdEpisodios(int qtdEpisodios) {
-		this.qtdEpisodios = qtdEpisodios;
-	}
-	
-	public List<Episodio> getEpisodios() {
-		return episodios;
-	}
-
-	public void setEpisodios(List<Episodio> episodios) {
-		this.episodios = episodios;
 	}
 
 	public int getId() {
@@ -59,6 +40,14 @@ public class AnimeDTO {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public int getTam() {
+		return tam;
+	}
+
+	public void setTam(int tam) {
+		this.tam = tam;
 	}
 
 	public String getLink() {
@@ -85,4 +74,14 @@ public class AnimeDTO {
 		this.image = image;
 	}
 
+	public List<Episodio> getEpisodios() {
+		return episodios;
+	}
+
+	public void setEpisodios(List<Episodio> episodios) {
+		this.episodios = episodios;
+	}
+
+	
+	
 }
